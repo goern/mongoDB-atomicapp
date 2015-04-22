@@ -24,7 +24,7 @@ setup(name='containerapp',
       author='Vaclav Pavlin',
       author_email='vpavlin@redhat.com',
       url='https://github.com/vpavlin/atomicapp-run',
-      license="MIT",
+      license="GNU General Public License v2 (GPLv2)",
       entry_points={
           'console_scripts': ['containerapp=containerapp.cli.main:main'],
       },

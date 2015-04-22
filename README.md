@@ -52,4 +52,6 @@ Providers represent various deployment targets. They are based on yapsy plugin s
 
 ### Wordpress App
 
+# Copyright
 
+GNU GPL 2.0, see gpl-2.0.txt
