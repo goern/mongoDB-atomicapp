@@ -13,6 +13,8 @@ graph:
     artifacts:
       openshift:
         - file://artifacts/openshift-full.json
+      docker:
+        - file://artifacts/docker_run
 requirements: 
   persistentVolume:
     name: "var-lib-mongodb-data"
