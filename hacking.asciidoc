@@ -9,25 +9,43 @@ Christoph Görn <goern@redhat.com>
 :toc:
 :toclevels: 3
 
-== how to run an Atomicapp?
+== preparation
+
+All development work is done on an entitled RHEL7.1 workstation. In addition to that EPEL7 has been enabled and python-pip is installed.
+
+If you are going to us containerapp during development please install anymarkup and yapsy.
+
+=== enabling EPEL7 on RHEL7
+
+This is pretty easy task: `rpm -Uvh http://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm`
+
+=== preparing atomicapp-run
+
+During development of your Atomicapp you will need atomicapp-run and its dependencies and setup a few things:
 
 [code,shell]
 --------
-[tester@rhel7server-mongodb-developer mongoDB-atomicapp]$ sudo gpasswd -a ${USER} docker
-[sudo] password for tester: 
-Sorry, try again.
-[sudo] password for tester: 
-Adding user tester to group docker
-[tester@rhel7server-mongodb-developer mongoDB-atomicapp]$ id -a
-uid=1000(tester) gid=1000(tester) groups=1000(tester),10(wheel) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
-[tester@rhel7server-mongodb-developer mongoDB-atomicapp]$ logout
-Connection to rhel7server-mongodb-developer closed.
-[goern@rh-t540p-goern-example-com ~]$ ssh tester@rhel7server-mongodb-developer 
-Last login: Fri Apr 24 10:12:42 2015 from 192.168.145.1
-[tester@rhel7server-mongodb-developer ~]$ id -a
-uid=1000(tester) gid=1000(tester) groups=1000(tester),10(wheel),990(docker) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
-[tester@rhel7server-mongodb-developer ~]$ sudo systemctl restart docker
-[sudo] password for tester: 
+yum install -y python-pip
+pip install --user yapsy
+cd $HOME
+git clone https://github.com/vpavlin/atomicapp-run/
+echo <<EOT >>$HOME/.bashrc
+export PYTHONPATH=$HOME/atomicapp-run:$PYTHONPATH
+alias containerapp="$HOME/atomicapp-run/containerapp/cli/main.py"
+EOF
+--------
+
+This will give you the most current version of `containerapp`, you will need it during development of your Atomicapp.
+
+=== setup docker
+
+The user you are working with must be able to use docker, most often you need do configure that using something like `sudo gpasswd -a ${USER} docker`. Dont forget to logout and in again and restart the docker service.
+
+
+== how to test an Atomicapp?
+
+[code,shell]
+--------
 [tester@rhel7server-mongodb-developer ~]$ cd Source/mongoDB-atomicapp/
 [tester@rhel7server-mongodb-developer mongoDB-atomicapp]$ containerapp --dry-run -v run .
 bash: containerapp: command not found...
