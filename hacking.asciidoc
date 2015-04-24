@@ -1,4 +1,4 @@
-= Hacking on the Nulecules 
+= Hacking the Nulecules 
 Christoph Görn <goern@redhat.com>
 :description: this is a short writeup of hacking on an Atomicapp 
 :doctype: book
@@ -31,21 +31,22 @@ During development of your Atomicapp you will need atomicapp-run and its depende
 
 [code,shell]
 --------
-yum install -y python-pip
-pip install --user yapsy
+sudo yum install -y python-pip
+pip install --user yapsy anymarkup
 cd $HOME
 git clone https://github.com/vpavlin/atomicapp-run/
-echo <<EOT >>$HOME/.bashrc
+cat <<EOT >>$HOME/.bashrc
 export PYTHONPATH=$HOME/atomicapp-run:$PYTHONPATH
 alias containerapp="$HOME/atomicapp-run/containerapp/cli/main.py"
-EOF
+EOT
 --------
 
 This will give you the most current version of `containerapp`, you will need it during development of your Atomicapp.
 
 === setup docker
 
-The user you are working with must be able to use docker, most often you need do configure that using something like `sudo gpasswd -a ${USER} docker`. Dont forget to logout and in again.
+Your user must be able to use docker, most often you need do configure that using something like `sudo gpasswd -a ${USER} docker`. Dont forget to logout and in again.
+As of `docker-1.5.0-28.el7` that group does no longer get created, so you need to use `sudo`.
 
 
 == how to test an Atomicapp?
