@@ -1,0 +1,64 @@
+= Hacking on the Nulecules 
+Christoph Görn <goern@redhat.com>
+:description: this is a short writeup of hacking on an Atomicapp 
+:doctype: book
+:compat-mode:
+:experimental:
+:listing-caption: Listing
+:icons: font
+:toc:
+:toclevels: 3
+
+== how to run an Atomicapp?
+
+[code,shell]
+--------
+[tester@rhel7server-mongodb-developer mongoDB-atomicapp]$ sudo gpasswd -a ${USER} docker
+[sudo] password for tester: 
+Sorry, try again.
+[sudo] password for tester: 
+Adding user tester to group docker
+[tester@rhel7server-mongodb-developer mongoDB-atomicapp]$ id -a
+uid=1000(tester) gid=1000(tester) groups=1000(tester),10(wheel) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+[tester@rhel7server-mongodb-developer mongoDB-atomicapp]$ logout
+Connection to rhel7server-mongodb-developer closed.
+[goern@rh-t540p-goern-example-com ~]$ ssh tester@rhel7server-mongodb-developer 
+Last login: Fri Apr 24 10:12:42 2015 from 192.168.145.1
+[tester@rhel7server-mongodb-developer ~]$ id -a
+uid=1000(tester) gid=1000(tester) groups=1000(tester),10(wheel),990(docker) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+[tester@rhel7server-mongodb-developer ~]$ sudo systemctl restart docker
+[sudo] password for tester: 
+[tester@rhel7server-mongodb-developer ~]$ cd Source/mongoDB-atomicapp/
+[tester@rhel7server-mongodb-developer mongoDB-atomicapp]$ containerapp --dry-run -v run .
+bash: containerapp: command not found...
+[tester@rhel7server-mongodb-developer mongoDB-atomicapp]$ export PYTHONPATH=$HOME/Source/atomicapp-run:$PYTHONPATH
+[tester@rhel7server-mongodb-developer mongoDB-atomicapp]$ alias containerapp="$HOME/Source/atomicapp-run/containerapp/cli/main.py"
+[tester@rhel7server-mongodb-developer mongoDB-atomicapp]$ containerapp --dry-run -v run .
+2015-04-24 11:01:43,591 - containerapp.params - DEBUG - Setting app id to nulecule-mongoDB-24-rhel7
+2015-04-24 11:01:43,591 - containerapp.params - DEBUG - Loading params
+2015-04-24 11:01:43,591 - containerapp.params - DEBUG - Data given: {u'requirements': {u'persistentVolume': {u'accessMode': u'ReadWrite', u'name': u'var-lib-mongodb-data', u'size': 4}}, u'graph': {u'mongodb': {u'artifacts': {u'docker': [u'file://artifacts/docker_run'], u'openshift': [u'file://artifacts/openshift-full.json']}}}, u'params': {u'name': {u'default': u'mongodb-24-rhel7', u'description': u'Name of the created container'}, u'image': {u'default': u'mongodb-24-rhel7', u'description': u'Image name'}, u'mongodb_username': {u'default': u'admin', u'description': u'User name for MONGODB account to be created', u'constraints': [{u'allowed_pattern': u'[a-zA-Z0-9]+', u'description': u'Must consist of characters and numbers only.'}]}, u'mongodb_password': {u'default': u'admin', u'description': u'Password for the user account', u'constraints': [{u'allowed_pattern': u'[a-zA-Z0-9]+', u'description': u'Must consist of characters and numbers only.'}]}, u'openshift': {u'labels': [u'mongodb', u'mongodb24']}, u'mongodb_database': {u'description': u'Database name to be created', u'constraints': [{u'allowed_pattern': u'[a-zA-Z0-9]+', u'description': u'Must consist of characters and numbers only.'}]}}, u'specversion': u'0.0.1-alpha', u'id': u'nulecule-mongoDB-24-rhel7', u'metadata': {u'name': u'mongoDB Nulecule', u'appversion': 2.4, u'license': {u'url': u'https://www.gnu.org/licenses/agpl-3.0.html', u'name': u'GNU AFFERO GENERAL PUBLIC LICENSE, Version 3'}, u'description': u'This is a mongoDB 2.4 Nulecule'}}
+2015-04-24 11:01:43,591 - containerapp.params - DEBUG - Params part of nulecule
+2015-04-24 11:01:43,591 - containerapp.params - DEBUG - Path to answers file given, loading /home/tester/Source/mongoDB-atomicapp/answers.conf
+2015-04-24 11:01:43,591 - containerapp.utils - DEBUG - Provider: docker
+2015-04-24 11:01:43,591 - containerapp.utils - DEBUG - Artifact file://artifacts/docker_run: OK
+2015-04-24 11:01:43,591 - containerapp.utils - DEBUG - Provider: openshift
+2015-04-24 11:01:43,591 - containerapp.utils - DEBUG - Artifact file://artifacts/openshift-full.json: OK
+2015-04-24 11:01:43,592 - containerapp.utils - INFO - Artifacts for mongodb present for these providers: docker, openshift
+2015-04-24 11:01:43,592 - containerapp.utils - DEBUG - {u'artifacts': {u'docker': [u'file://artifacts/docker_run'], u'openshift': [u'file://artifacts/openshift-full.json']}}
+2015-04-24 11:01:43,592 - containerapp.run - DEBUG - Processing component mongodb
+2015-04-24 11:01:43,592 - containerapp.utils - INFO - Using temporary directory /tmp/appent-nulecule-mongoDB-24-rhel7PKxOB2
+2015-04-24 11:01:43,593 - containerapp.run - DEBUG - Templating artifact ./artifacts/docker_run
+2015-04-24 11:01:43,593 - containerapp.params - DEBUG - Skipping openshift
+2015-04-24 11:01:43,593 - containerapp.params - DEBUG - Ask for mongodb_database: Database name to be created
+mongodb_database (Database name to be created): test
+2015-04-24 11:01:45,976 - containerapp.params - DEBUG - Checking pattern: [a-zA-Z0-9]+
+2015-04-24 11:01:45,976 - containerapp.params - DEBUG - Param provider already in general with value docker
+2015-04-24 11:01:45,977 - containerapp.run - DEBUG - Config: {u'name': u'mongodb-24-rhel7', u'image': u'mongodb-24-rhel7', u'mongodb_username': u'admin', u'mongodb_password': u'admin', u'provider': u'docker', u'openshift': {u'labels': [u'mongodb', u'mongodb24']}, u'mongodb_database': 'test'} 
+2015-04-24 11:01:45,977 - containerapp.run - DEBUG - Writing artifact to /tmp/appent-nulecule-mongoDB-24-rhel7PKxOB2/mongodb/artifacts/docker_run
+2015-04-24 11:01:45,977 - containerapp.run - INFO - Using provider docker for component mongodb
+2015-04-24 11:01:45,977 - containerapp.params - DEBUG - Skipping openshift
+2015-04-24 11:01:45,977 - containerapp.params - DEBUG - Param provider already in general with value docker
+2015-04-24 11:01:45,991 - containerapp.run.docker - INFO - Pretending to run:
+	 docker run -d -v /sys/fs/cgroup:/sys/fs/cgroup -v /var/log/journal:/var/log/journal -e MONGODB_USERNAME=admin -e MONGODB_PASSWORD=admin -e MONGODB_DATABASE=test --name mongodb-24-rhel7 mongodb-24-rhel7
+[tester@rhel7server-mongodb-developer mongoDB-atomicapp]$
+--------
