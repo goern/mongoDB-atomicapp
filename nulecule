@@ -23,11 +23,13 @@ requirements:
 params:
   mongodb_username:
     description: User name for MONGODB account to be created
+    default: admin
     constraints:
       - allowed_pattern: "[a-zA-Z0-9]+"
         description: Must consist of characters and numbers only.
   mongodb_password:
     description: Password for the user account
+    default: admin
     constraints:
       - allowed_pattern: "[a-zA-Z0-9]+"
         description: Must consist of characters and numbers only.
@@ -40,3 +42,9 @@ params:
     labels:
       - mongodb
       - mongodb24
+  image:
+    description: Image name
+    default: mongodb-24-rhel7
+  name:
+    description: Name of the created container
+    default: mongodb-24-rhel7
