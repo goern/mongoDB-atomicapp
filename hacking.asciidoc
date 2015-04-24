@@ -39,10 +39,12 @@ This will give you the most current version of `containerapp`, you will need it 
 
 === setup docker
 
-The user you are working with must be able to use docker, most often you need do configure that using something like `sudo gpasswd -a ${USER} docker`. Dont forget to logout and in again and restart the docker service.
+The user you are working with must be able to use docker, most often you need do configure that using something like `sudo gpasswd -a ${USER} docker`. Dont forget to logout and in again.
 
 
 == how to test an Atomicapp?
+
+To dry run a deployment of your Atomicapp you could use the `containerapp` tool. It will give and lots of output and show you what will happen while deployment.
 
 [code,shell]
 --------
