@@ -11,9 +11,9 @@ Christoph Görn <goern@redhat.com>
 
 == Introduction
 
-This document will give you a short introduction on building Atomicapps. An Atomicapp is a containerized application that is packaged using docker images and defined by using the https://github.com/projectatomic/nulecule/tree/master/spec/0.0.1-alpha[Nulecule Specification].
+This document will give you a short introduction on building Atomicapps. An Atomicapp is a containerized application that is packaged using docker images and defined by using the https://github.com/projectatomic/nulecule/tree/master/spec/0.0.1-alpha[Nulecule Specification]. The reference implementation of the Nulecule Specification is https://github.com/vpavlin/atomicapp-run[atomicapp-run].
 
-It will walk you thru preparation and setup a development environment and testing the Atomicapp you are working on. It is adviced that you set up your development environment using Vagrant or https://github.com/purpleidea/oh-my-vagrant[oh-my-vagrant].
+It will walk you thru preparation and setup of a development environment, and testing the Atomicapp you are working on. It is adviced that you set up your development environment using Vagrant or https://github.com/purpleidea/oh-my-vagrant[oh-my-vagrant], see also https://trello.com/c/y84460CP[Add required tools to the Vagrant Box for container app].
 
 == preparation
 
@@ -41,7 +41,7 @@ alias containerapp="$HOME/atomicapp-run/containerapp/cli/main.py"
 EOT
 --------
 
-This will give you the most current version of `containerapp`, you will need it during development of your Atomicapp.
+This will give you the most current version of `containerapp`, you will need it for testing during development of your Atomicapp.
 
 === setup docker
 
