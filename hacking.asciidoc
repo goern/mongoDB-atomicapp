@@ -89,3 +89,21 @@ mongodb_database (Database name to be created): test
 	 docker run -d -v /sys/fs/cgroup:/sys/fs/cgroup -v /var/log/journal:/var/log/journal -e MONGODB_USERNAME=admin -e MONGODB_PASSWORD=admin -e MONGODB_DATABASE=test --name mongodb-24-rhel7 mongodb-24-rhel7
 [tester@rhel7server-mongodb-developer mongoDB-atomicapp]$
 --------
+
+== using the Atomicapp Base Docker Image
+
+where to find it?
+What version is current and required?
+
+=== preparing your Atomicapp
+
+what do to?
+
+=== building myApp Atomicapp Docker Image
+
+example Dockerfile
+
+how to name your docker image?
+
+how to tag it?
+
