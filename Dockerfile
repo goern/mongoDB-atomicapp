@@ -1,4 +1,4 @@
-FROM vpavlin/atomicapp-run 
+FROM goern/atomicapp-centos7
 
 MAINTAINER Christoph Görn <goern@redhat.com>
 
