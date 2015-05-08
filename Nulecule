@@ -1,50 +1,48 @@
 ---
-specversion: 0.0.1-alpha
-id: nulecule-mongoDB-24-rhel7
+specversion: 0.0.2
+id: atomicapp-mongoDB-24-centos7
 metadata:
-  name: mongoDB Nulecule
+  name: mongoDB Atomicapp 
   appversion: 2.4
-  description: This is a mongoDB 2.4 Nulecule 
+  description: This is a mongoDB 2.4 Nulecule, aka Atomicapp 
   license:
     name: GNU AFFERO GENERAL PUBLIC LICENSE, Version 3
     url: https://www.gnu.org/licenses/agpl-3.0.html
 graph:
-  mongodb:
-    artifacts:
+  - name: atomicapp-mongoDB-24-centos7
+  - artifacts:
       openshift:
-        - file://artifacts/openshift-full.json
-      docker:
-        - file://artifacts/docker_run
+        - file://artifacts/openshift3/openshift-full.json
+      kubernetes:
+        - file://artifacts/kubernetes/atomicapp-mongoDB-24-centos7.json
 requirements: 
   persistentVolume:
     name: "var-lib-mongodb-data"
     accessMode: "ReadWrite" 
     size: 4 # GB by default
 params:
-  mongodb_username:
+  - name: mongodb_username
     description: User name for MONGODB account to be created
     default: admin
     constraints:
       - allowed_pattern: "[a-zA-Z0-9]+"
         description: Must consist of characters and numbers only.
-  mongodb_password:
+  - name: mongodb_password
     description: Password for the user account
     default: admin
     constraints:
       - allowed_pattern: "[a-zA-Z0-9]+"
         description: Must consist of characters and numbers only.
-  mongodb_database:
+  - name: mongodb_database
     description: Database name to be created
     constraints:
       - allowed_pattern: "[a-zA-Z0-9]+"
         description: Must consist of characters and numbers only.
-  openshift:
+  - name: openshift
     labels:
       - mongodb
       - mongodb24
-  image:
-    description: Image name
-    default: mongodb-24-rhel7
-  name:
-    description: Name of the created container
-    default: mongodb-24-rhel7
+  - name: kubernetes
+    labels:
+      - mongodb
+      - mongodb24

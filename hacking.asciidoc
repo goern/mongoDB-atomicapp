@@ -11,7 +11,12 @@ Christoph Görn <goern@redhat.com>
 
 == Introduction
 
-This document will give you a short introduction on building Atomicapps. An Atomicapp is a containerized application that is packaged using docker images and defined by using the https://github.com/projectatomic/nulecule/tree/master/spec/0.0.1-alpha[Nulecule Specification]. The reference implementation of the Nulecule Specification is https://github.com/vpavlin/atomicapp-run[atomicapp-run].
+This document will give you a short introduction on building
+Atomicapps. An Atomicapp is a containerized application that is
+packaged using docker images and defined by using the
+https://github.com/projectatomic/nulecule/tree/master/spec/0.0.2[Nulecule
+Specification]. The reference implementation of the Nulecule
+Specification is https://github.com/projectatomic/atomicapp[atomicapp].
 
 It will walk you thru preparation and setup of a development environment, and testing the Atomicapp you are working on. It is adviced that you set up your development environment using Vagrant or https://github.com/purpleidea/oh-my-vagrant[oh-my-vagrant], see also https://trello.com/c/y84460CP[Add required tools to the Vagrant Box for container app].
 
@@ -34,10 +39,10 @@ During development of your Atomicapp you will need atomicapp-run and its depende
 sudo yum install -y python-pip
 pip install --user yapsy anymarkup
 cd $HOME
-git clone https://github.com/vpavlin/atomicapp-run/
+git clone https://github.com/projectatomic/atomicapp/
 cat <<EOT >>$HOME/.bashrc
-export PYTHONPATH=$HOME/atomicapp-run:$PYTHONPATH
-alias containerapp="$HOME/atomicapp-run/containerapp/cli/main.py"
+export PYTHONPATH=$HOME/atomicapp:$PYTHONPATH
+alias containerapp="$HOME/atomicapp/containerapp/cli/main.py"
 EOT
 --------
 
@@ -92,12 +97,25 @@ mongodb_database (Database name to be created): test
 
 == using the Atomicapp Base Docker Image
 
-where to find it?
+where to find it? one centos based is at vpavlin/atomicapp, or build
+your own: clone github.com/atomicapp && ./build_run.sh centos
 What version is current and required?
 
 === preparing your Atomicapp
 
 what do to?
+
+=== what about parameters?
+
+* Param has to be specified in Nulecule so that it can be set
+* Param can have default value - which means the value does not have to be provided by deployer
+* If param does not have a default value, it has to be provided by deployer in answers
+* Even if the param has a default value it can be overwritten in answers
+
+Based on implementation the answers can be a file, a content of rest
+api call, an interactively created set of values... for atomicapp it
+is a file called `answers.conf`.
+
 
 === building myApp Atomicapp Docker Image
 
@@ -107,3 +125,6 @@ how to name your docker image?
 
 how to tag it?
 
+== References
+
+This source code for this page is at https://github.com/goern/mongoDB-atomicapp/blob/master/hacking.asciidoc 
