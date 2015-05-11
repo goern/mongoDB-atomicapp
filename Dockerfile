@@ -1,7 +1,7 @@
-FROM goern/atomicapp-centos7
+FROM tester/atomicapp-centos 
 
 MAINTAINER Christoph Görn <goern@redhat.com>
 
-ADD /Nulecule /Dockerfile /application-entity/
-ADD /artifaces /application-entity/artifaces
+ADD /nulecule /Dockerfile /application-entity/
+ADD /artifacts /application-entity/artifacts
 

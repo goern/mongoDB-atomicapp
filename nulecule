@@ -1,5 +1,5 @@
 ---
-specversion: 0.0.2
+specversion: 0.0.1-alpha
 id: atomicapp-mongoDB-24-centos7
 metadata:
   name: mongoDB Atomicapp 
@@ -9,8 +9,8 @@ metadata:
     name: GNU AFFERO GENERAL PUBLIC LICENSE, Version 3
     url: https://www.gnu.org/licenses/agpl-3.0.html
 graph:
-  - name: atomicapp-mongoDB-24-centos7
-  - artifacts:
+  mongodb:
+    artifacts:
       openshift:
         - file://artifacts/openshift3/openshift-full.json
       kubernetes:
@@ -21,28 +21,24 @@ requirements:
     accessMode: "ReadWrite" 
     size: 4 # GB by default
 params:
-  - name: mongodb_username
+  mongodb_username:
     description: User name for MONGODB account to be created
     default: admin
     constraints:
       - allowed_pattern: "[a-zA-Z0-9]+"
         description: Must consist of characters and numbers only.
-  - name: mongodb_password
+  mongodb_password:
     description: Password for the user account
     default: admin
     constraints:
       - allowed_pattern: "[a-zA-Z0-9]+"
         description: Must consist of characters and numbers only.
-  - name: mongodb_database
+  mongodb_database:
     description: Database name to be created
     constraints:
       - allowed_pattern: "[a-zA-Z0-9]+"
         description: Must consist of characters and numbers only.
-  - name: openshift
-    labels:
-      - mongodb
-      - mongodb24
-  - name: kubernetes
+  kubernetes:
     labels:
       - mongodb
       - mongodb24
