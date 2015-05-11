@@ -1,0 +1,10 @@
+{
+  "kind": "Service",
+  "apiversion": "v1beta1",
+  "id": "mongodb",
+  "port": 27017,
+  "selector": {
+    "name": "mongodb"
+  }
+}
+

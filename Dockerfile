@@ -1,4 +1,4 @@
-FROM tester/atomicapp-centos 
+FROM projectatomic/atomicapp:dev 
 
 MAINTAINER Christoph Görn <goern@redhat.com>
 
