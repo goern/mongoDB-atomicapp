@@ -14,7 +14,10 @@ graph:
       openshift:
         - file://artifacts/openshift3/openshift-full.json
       kubernetes:
-        - file://artifacts/kubernetes/atomicapp-mongoDB-24-centos7.json
+        - file://artifacts/kubernetes/pod-mongodb.json
+        - file://artifacts/kubernetes/replicationcontroller-mongodb.json
+        - file://artifacts/kubernetes/secrets.json
+        - file://artifacts/kubernetes/service-mongodb.json
 requirements: 
   persistentVolume:
     name: "var-lib-mongodb-data"
