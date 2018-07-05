@@ -2,7 +2,7 @@ FROM rhel7
 
 MAINTAINER Vaclav Pavlin <vpavlin@redhat.com>
 
-RUN echo -e "[epel]\nname=epel\nenabled=1\nbaseurl=https://dl.fedoraproject.org/pub/epel/7/x86_64/\ngpgcheck=0" > /etc/yum.repos.d/epel.repo
+RUN echo -e "[epel]\nname=epel\nenabled=1\nbaseurl=https://dl.fedoraproject.org/pub/epel/7/x86_64/\ngpgkey=https://getfedora.org/static/352C64E5.txt\ngpgcheck=1" > /etc/yum.repos.d/epel.repo
 
 RUN yum install -y yum-utils && \
     yum-config-manager --disable \* && \
